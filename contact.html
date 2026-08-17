@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | Global Vocational Institute</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .contact-page {
+            min-height: 100vh;
+            background: linear-gradient(180deg, rgba(255,255,255,0.14), rgba(255,255,255,0.42));
+            position: relative;
+            overflow-x: hidden;
+            transition: background 0.3s ease;
+        }
+
+        body.theme-dark .contact-page {
+            background: linear-gradient(180deg, rgba(10, 14, 26, 0.8), rgba(20, 26, 48, 0.9));
+        }
+
+        .contact-shell {
+            padding: 3rem 1rem 2rem;
+            width: 100%;
+            max-width: 1120px;
+            margin: 0 auto;
+        }
+
+        .contact-hero {
+            text-align: center;
+            margin-bottom: 3.5rem;
+        }
+
+        .contact-hero .section-kicker {
+            display: block;
+            font-size: 0.95rem;
+            font-weight: 700;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .contact-hero h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--text);
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .contact-hero p {
+            font-size: 1.1rem;
+            color: var(--muted);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 4rem;
+        }
+
+        @media (max-width: 900px) {
+            .contact-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+
+        .contact-info-panel {
+            background: var(--card-bg);
+            border-radius: 24px;
+            padding: 2.5rem;
+            border: 1px solid var(--border);
+            box-shadow: 0 18px 50px var(--card-shadow);
+            transition: all 0.3s ease;
+        }
+
+        body.theme-dark .contact-info-panel {
+            background: linear-gradient(180deg, rgba(15, 20, 31, 0.72), rgba(18, 26, 39, 0.86));
+            border: 1px solid rgba(122, 184, 255, 0.12);
+            box-shadow: 0 18px 45px rgba(2, 6, 23, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+        }
+
+        .contact-info-panel h2 {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: var(--text);
+        }
+
+        .contact-info-item {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            align-items: flex-start;
+        }
+
+        .contact-info-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .contact-info-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.5rem;
+            height: 2.5rem;
+            min-width: 2.5rem;
+            background: linear-gradient(135deg, rgba(31, 111, 235, 0.12), rgba(31, 111, 235, 0.08));
+            border-radius: 16px;
+            font-size: 1.3rem;
+            border: 1px solid var(--border);
+        }
+
+        body.theme-dark .contact-info-icon {
+            background: rgba(122, 184, 255, 0.12);
+            border-color: rgba(122, 184, 255, 0.18);
+        }
+
+        .contact-info-content h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 0.35rem;
+        }
+
+        .contact-info-content p {
+            font-size: 0.95rem;
+            color: var(--muted);
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .contact-info-content a {
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .contact-info-content a:hover {
+            color: var(--primary-dark);
+        }
+
+        body.theme-dark .contact-info-content a {
+            color: #7ab8ff;
+        }
+
+        body.theme-dark .contact-info-content a:hover {
+            color: #9ec8ff;
+        }
+
+        .contact-form-panel {
+            background: var(--card-bg);
+            border-radius: 24px;
+            padding: 2.5rem;
+            border: 1px solid var(--border);
+            box-shadow: 0 18px 50px var(--card-shadow);
+            transition: all 0.3s ease;
+        }
+
+        body.theme-dark .contact-form-panel {
+            background: linear-gradient(180deg, rgba(15, 20, 31, 0.72), rgba(18, 26, 39, 0.86));
+            border: 1px solid rgba(122, 184, 255, 0.12);
+            box-shadow: 0 18px 45px rgba(2, 6, 23, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+        }
+
+        .contact-form-panel h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--text);
+        }
+
+        .contact-form {
+            display: grid;
+            gap: 1.25rem;
+        }
+
+        .form-group {
+            display: grid;
+            gap: 0.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--text);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            border: 1px solid rgba(31, 111, 235, 0.2);
+            border-radius: 16px;
+            padding: 0.95rem 1rem;
+            background: #f8fafc;
+            color: #0f172a;
+            font: inherit;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+        }
+
+        body.theme-dark .form-group input,
+        body.theme-dark .form-group textarea {
+            background: rgba(20, 28, 48, 0.7);
+            color: #e8ebf5;
+            border-color: rgba(122, 184, 255, 0.15);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: #ffffff;
+            box-shadow: 0 0 0 3px rgba(31, 111, 235, 0.1);
+        }
+
+        body.theme-dark .form-group input:focus,
+        body.theme-dark .form-group textarea:focus {
+            background: rgba(20, 28, 48, 0.85);
+            border-color: rgba(122, 184, 255, 0.3);
+            box-shadow: 0 0 0 3px rgba(122, 184, 255, 0.12);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 140px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.25rem;
+        }
+
+        @media (max-width: 600px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .form-submit {
+            border: none;
+            background: linear-gradient(135deg, #1f6feb 0%, #174ab6 100%);
+            color: #ffffff;
+            padding: 1rem 1.5rem;
+            border-radius: 999px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 8px 16px rgba(31, 111, 235, 0.24);
+            margin-top: 0.5rem;
+        }
+
+        .form-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px rgba(31, 111, 235, 0.32);
+        }
+
+        .form-submit:active {
+            transform: translateY(0);
+        }
+
+        body.theme-dark .form-submit {
+            background: linear-gradient(135deg, #7ab8ff 0%, #5da5ff 100%);
+            color: #0a0e1a;
+            box-shadow: 0 8px 20px rgba(122, 184, 255, 0.3);
+        }
+
+        body.theme-dark .form-submit:hover {
+            box-shadow: 0 12px 28px rgba(122, 184, 255, 0.4);
+        }
+
+        .form-note {
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+            color: var(--muted);
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+        }
+
+        body.theme-dark .form-note {
+            border-top-color: rgba(122, 184, 255, 0.12);
+        }
+
+        .contact-footer-section {
+            background: var(--card-bg);
+            border-radius: 24px;
+            padding: 2.5rem;
+            border: 1px solid var(--border);
+            box-shadow: 0 18px 50px var(--card-shadow);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        body.theme-dark .contact-footer-section {
+            background: linear-gradient(180deg, rgba(15, 20, 31, 0.72), rgba(18, 26, 39, 0.86));
+            border: 1px solid rgba(122, 184, 255, 0.12);
+            box-shadow: 0 18px 45px rgba(2, 6, 23, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+        }
+
+        .contact-footer-section h3 {
+            font-size: 1.2rem;
+            color: var(--text);
+            margin-bottom: 1rem;
+        }
+
+        .contact-footer-section p {
+            color: var(--muted);
+            margin-bottom: 0.75rem;
+        }
+
+        .contact-footer-section .contact-cta {
+            display: inline-block;
+            padding: 0.85rem 1.5rem;
+            background: linear-gradient(135deg, #1f6feb 0%, #174ab6 100%);
+            color: #ffffff;
+            border-radius: 999px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            box-shadow: 0 8px 16px rgba(31, 111, 235, 0.24);
+            margin-top: 0.5rem;
+        }
+
+        .contact-footer-section .contact-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px rgba(31, 111, 235, 0.32);
+        }
+
+        body.theme-dark .contact-footer-section .contact-cta {
+            background: linear-gradient(135deg, #7ab8ff 0%, #5da5ff 100%);
+            color: #0a0e1a;
+            box-shadow: 0 8px 20px rgba(122, 184, 255, 0.3);
+        }
+
+        body.theme-dark .contact-footer-section .contact-cta:hover {
+            box-shadow: 0 12px 28px rgba(122, 184, 255, 0.4);
+        }
+
+        .section-title {
+            margin-bottom: 2.5rem;
+            text-align: center;
+        }
+
+        .section-title span {
+            display: block;
+            font-size: 0.95rem;
+            font-weight: 700;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .section-title h2 {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--text);
+            margin: 0;
+        }
+
+        .quick-help-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .contact-shell {
+                padding: 2rem 1rem;
+            }
+
+            .contact-hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .contact-container {
+                gap: 2rem;
+                margin-bottom: 3rem;
+            }
+
+            .contact-info-panel,
+            .contact-form-panel,
+            .contact-footer-section {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+
+<body class="contact-page">
+
+    <!-- NAVBAR -->
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <img src="assets/img/logo.png" alt="School Logo">
+                <span>School</span>
+            </div>
+
+            <button class="nav-toggle" aria-controls="primary-menu" aria-expanded="false" aria-label="Toggle navigation">☰</button>
+            <ul class="nav-menu" id="primary-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about us.html">About</a></li>
+                <li><a href="departments.html">Departments</a></li>
+                <li><a href="news.html">News</a></li>
+                <li><a href="contact.html" class="active">Contact</a></li>
+            </ul>
+
+            <div class="nav-actions">
+                <button type="button" class="theme-toggle" aria-label="Toggle light and dark mode">
+                    <span class="theme-icon">🌙</span>
+                </button>
+                <a href="index.html#apply" class="nav-cta open-modal">Apply Now</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="contact-shell">
+
+            <!-- HERO SECTION -->
+            <div class="contact-hero">
+                <span class="section-kicker">GET IN TOUCH</span>
+                <h1>We'd love to hear from you.</h1>
+                <p>Have a question? Let's start a conversation. Reach out to us through the form below or use the contact information provided.</p>
+            </div>
+
+            <!-- CONTACT CONTAINER - TWO COLUMNS -->
+            <div class="contact-container">
+
+                <!-- LEFT COLUMN: CONTACT INFORMATION -->
+                <div class="contact-info-panel">
+                    <h2>Contact Information</h2>
+
+                    <!-- Address -->
+                    <div class="contact-info-item">
+                        <div class="contact-info-icon">📍</div>
+                        <div class="contact-info-content">
+                            <h3>Address</h3>
+                            <p>123 Education Street<br>Bekasi, Indonesia</p>
+                        </div>
+                    </div>
+
+                    <!-- Phone -->
+                    <div class="contact-info-item">
+                        <div class="contact-info-icon">📞</div>
+                        <div class="contact-info-content">
+                            <h3>Phone</h3>
+                            <p><a href="tel:+622112345678">+62 21 1234 5678</a></p>
+                        </div>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="contact-info-item">
+                        <div class="contact-info-icon">✉️</div>
+                        <div class="contact-info-content">
+                            <h3>Email</h3>
+                            <p><a href="mailto:hello@nexora.sch.id">hello@nexora.sch.id</a></p>
+                        </div>
+                    </div>
+
+                    <!-- Business Hours -->
+                    <div class="contact-info-item">
+                        <div class="contact-info-icon">🕐</div>
+                        <div class="contact-info-content">
+                            <h3>Business Hours</h3>
+                            <p>Monday – Friday<br>07:00 – 16:00 WIB</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RIGHT COLUMN: CONTACT FORM -->
+                <div class="contact-form-panel">
+                    <h2>Send Us a Message</h2>
+
+                    <form class="contact-form" id="contactForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="contactName">Full Name</label>
+                                <input type="text" id="contactName" name="name" placeholder="Your name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="contactEmail">Email Address</label>
+                                <input type="email" id="contactEmail" name="email" placeholder="your@email.com" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="contactSubject">Subject</label>
+                            <input type="text" id="contactSubject" name="subject" placeholder="What is this about?" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="contactMessage">Message</label>
+                            <textarea id="contactMessage" name="message" placeholder="Type your message here..." required></textarea>
+                        </div>
+
+                        <button type="submit" class="form-submit">Send Message</button>
+
+                        <p class="form-note">The data is stored locally only. Contact the school directly for confirmation of your inquiry.</p>
+                    </form>
+                </div>
+
+            </div>
+
+            <!-- FOOTER SECTION - Quick Help -->
+            <div class="section-title">
+                <span>NEED SOMETHING SPECIFIC?</span>
+                <h2>Quick Help</h2>
+            </div>
+
+            <div class="quick-help-grid">
+                <div class="contact-footer-section">
+                    <h3>Admissions</h3>
+                    <p>Interested in joining our programs? Learn about the application process and requirements.</p>
+                    <a href="index.html#apply" class="contact-cta">Apply Now →</a>
+                </div>
+
+                <div class="contact-footer-section">
+                    <h3>General Info</h3>
+                    <p>Need information about our school, programs, or facilities? We're here to help.</p>
+                    <a href="tel:+622112345678" class="contact-cta">Call Us →</a>
+                </div>
+
+                <div class="contact-footer-section">
+                    <h3>Support</h3>
+                    <p>Have a concern or need support? Our team is ready to assist you.</p>
+                    <a href="mailto:hello@nexora.sch.id" class="contact-cta">Email Us →</a>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-top">
+            <div class="container footer-intro">
+                <div>
+                    <span>FIND US</span>
+                    <h2>Visit Our Campus</h2>
+                    <p>We'd love to welcome you to our campus. Come and discover where future professionals begin their journey.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="container footer-content">
+                <div class="footer-details">
+                    <h3>Global Vocational Institute</h3>
+                    <p class="footer-address">📍 123 Education Street<br>Bekasi, Indonesia</p>
+                    <p>📞 +62 21 1234 5678</p>
+                    <p>✉️ hello@nexora.sch.id</p>
+                    <p class="footer-hours">Mon – Fri<br>07:00 – 16:00</p>
+                    <a href="#" class="footer-cta">Get Directions →</a>
+                </div>
+
+                <div class="footer-map">
+                    <div class="footer-map-card">
+                        <h3>School Location</h3>
+                        <p class="map-label">Global Vocational Institute, Bekasi, West Java.</p>
+                        <iframe id="schoolMap" class="map-frame" loading="lazy" referrerpolicy="no-referrer-when-downgrade" aria-label="School location map" src="https://www.openstreetmap.org/export/embed.html?bbox=106.9920%2C6.2150%2C107.0256%2C6.2650&layer=mapnik&marker=6.2400%2C107.0088"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="copyright">
+            &copy; 2026 Global Vocational Institute. All Rights Reserved.
+        </div>
+    </footer>
+
+    <script src="assets/js/menu-toggle.js"></script>
+    <script>
+        // Handle form submission
+        const contactForm = document.getElementById('contactForm');
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Get form data
+                const formData = {
+                    name: document.getElementById('contactName').value,
+                    email: document.getElementById('contactEmail').value,
+                    subject: document.getElementById('contactSubject').value,
+                    message: document.getElementById('contactMessage').value,
+                    timestamp: new Date().toISOString()
+                };
+
+                // Store in localStorage
+                let contactMessages = JSON.parse(localStorage.getItem('contactMessages')) || [];
+                contactMessages.push(formData);
+                localStorage.setItem('contactMessages', JSON.stringify(contactMessages));
+
+                // Show confirmation
+                alert('Thank you for your message! We have received your inquiry and will get back to you soon.');
+
+                // Reset form
+                contactForm.reset();
+            });
+        }
+
+        // Theme toggle functionality
+        const themeToggle = document.querySelector('.theme-toggle');
+        const html = document.documentElement;
+
+        if (themeToggle) {
+            themeToggle.addEventListener('click', function() {
+                if (html.classList.contains('theme-dark')) {
+                    html.classList.remove('theme-dark');
+                    document.body.classList.remove('theme-dark');
+                    localStorage.setItem('theme', 'light');
+                } else {
+                    html.classList.add('theme-dark');
+                    document.body.classList.add('theme-dark');
+                    localStorage.setItem('theme', 'dark');
+                }
+            });
+
+            // Apply saved theme preference
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            if (savedTheme === 'dark') {
+                html.classList.add('theme-dark');
+                document.body.classList.add('theme-dark');
+            }
+        }
+
+        // Mobile menu toggle
+        const navToggle = document.querySelector('.nav-toggle');
+        const navMenu = document.getElementById('primary-menu');
+
+        if (navToggle && navMenu) {
+            navToggle.addEventListener('click', function() {
+                const isExpanded = this.getAttribute('aria-expanded') === 'true';
+                this.setAttribute('aria-expanded', !isExpanded);
+                navMenu.classList.toggle('active');
+            });
+        }
+
+        // Close mobile menu when a link is clicked
+        const navLinks = document.querySelectorAll('.nav-menu a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                navToggle.setAttribute('aria-expanded', 'false');
+                navMenu.classList.remove('active');
+            });
+        });
+    </script>
+
+</body>
+</html>

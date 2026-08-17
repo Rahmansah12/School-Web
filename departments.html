@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Departments | Global Vocational Institute</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        :root {
+            --departments-bg: #f4f7fb;
+            --departments-surface: rgba(255, 255, 255, 0.8);
+            --departments-panel: rgba(255, 255, 255, 0.9);
+            --departments-border: rgba(15, 23, 42, 0.12);
+            --departments-text: #1f2937;
+            --departments-muted: #475569;
+            --departments-accent: #1f6feb;
+            --departments-accent-soft: rgba(31, 111, 235, 0.08);
+        }
+
+        body {
+            background: linear-gradient(180deg, #eef5ff 0%, #f5f7fb 100%);
+            color: var(--departments-text);
+        }
+
+        body.theme-dark {
+            --departments-bg: #0b1220;
+            --departments-surface: rgba(15, 20, 31, 0.8);
+            --departments-panel: rgba(17, 24, 39, 0.85);
+            --departments-border: rgba(122, 184, 255, 0.14);
+            --departments-text: #e8ebf5;
+            --departments-muted: #a8b8d8;
+            --departments-accent: #7ab8ff;
+            --departments-accent-soft: rgba(122, 184, 255, 0.12);
+            background: linear-gradient(180deg, #0b1220 0%, #101827 100%);
+        }
+
+        .departments-page {
+            min-height: 100vh;
+            background: var(--departments-bg);
+            color: var(--departments-text);
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        .departments-shell {
+            width: min(1160px, calc(100% - 2rem));
+            margin: 2rem auto 4rem;
+        }
+
+        .departments-landing {
+            background: rgba(255, 255, 255, 0.25);
+            border: 1px solid var(--departments-border);
+            border-radius: 24px;
+            box-shadow: 0 24px 80px rgba(15, 23, 42, 0.06);
+            overflow: hidden;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        body.theme-dark .departments-landing {
+            background: rgba(15, 20, 31, 0.3);
+            box-shadow: 0 24px 80px rgba(2, 6, 23, 0.26);
+        }
+
+        .departments-header {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--departments-border);
+        }
+
+        .departments-hero {
+            padding: 2rem 1.5rem 1.25rem;
+            border-bottom: 1px solid var(--departments-border);
+        }
+
+        .section-kicker {
+            display: inline-block;
+            margin-bottom: 0.8rem;
+            color: var(--departments-accent);
+            font-size: 0.76rem;
+            font-weight: 800;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+        }
+
+        .departments-title {
+            margin: 0;
+            font-size: clamp(2.2rem, 4vw, 3.4rem);
+            line-height: 1.08;
+            letter-spacing: -0.05em;
+            color: var(--departments-text);
+        }
+
+        .departments-subtitle {
+            max-width: 760px;
+            margin-top: 0.8rem;
+            font-size: 1.08rem;
+            color: var(--departments-muted);
+        }
+
+        .departments-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            padding: 1.25rem 1.5rem 0;
+        }
+
+        .filter-btn {
+            appearance: none;
+            border: 1px solid var(--departments-border);
+            background: rgba(255, 255, 255, 0.5);
+            color: var(--departments-text);
+            border-radius: 999px;
+            padding: 0.7rem 1.2rem;
+            font-size: 0.77rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        body.theme-dark .filter-btn {
+            background: rgba(17, 24, 39, 0.7);
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: linear-gradient(135deg, var(--departments-accent) 0%, #5da5ff 100%);
+            color: #09111d;
+            border-color: transparent;
+            box-shadow: 0 12px 25px rgba(31, 111, 235, 0.18);
+        }
+
+        .program-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1.2rem;
+            padding: 1.5rem;
+        }
+
+        .program-card {
+            display: grid;
+            grid-template-columns: 1.1fr 1.4fr;
+            min-height: 230px;
+            border: 1px solid var(--departments-border);
+            background: var(--departments-panel);
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 18px 40px rgba(15, 23, 42, 0.05);
+            transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
+            position: relative;
+        }
+
+        body.theme-dark .program-card {
+            background: linear-gradient(180deg, rgba(15, 20, 31, 0.8), rgba(18, 26, 39, 0.9));
+            box-shadow: 0 18px 40px rgba(2, 6, 23, 0.26);
+        }
+
+        .program-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(31, 111, 235, 0.08), transparent 55%);
+            opacity: 0;
+            transition: opacity 0.28s ease;
+            pointer-events: none;
+        }
+
+        .program-card:hover {
+            transform: translateY(-6px) scale(1.01);
+            box-shadow: 0 24px 52px rgba(15, 23, 42, 0.11);
+            border-color: rgba(31, 111, 235, 0.22);
+        }
+
+        .program-card:hover::before {
+            opacity: 1;
+        }
+
+        .program-image {
+            min-height: 100%;
+            background: linear-gradient(135deg, rgba(31, 111, 235, 0.06), rgba(31, 111, 235, 0.14));
+            position: relative;
+            overflow: hidden;
+        }
+
+        .program-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .program-card:hover .program-image img {
+            transform: scale(1.05);
+        }
+
+        .program-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 1.3rem 1.4rem;
+        }
+
+        .program-tag {
+            margin-bottom: 0.8rem;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--departments-accent);
+        }
+
+        .program-name {
+            margin: 0 0 0.55rem;
+            font-size: clamp(1.15rem, 2vw, 1.7rem);
+            line-height: 1.2;
+            letter-spacing: -0.03em;
+            color: var(--departments-text);
+        }
+
+        .program-summary {
+            margin: 0 0 0.8rem;
+            color: var(--departments-muted);
+            line-height: 1.7;
+        }
+
+        .program-points {
+            margin: 0 0 1rem;
+            padding-left: 1.1rem;
+            color: var(--departments-text);
+            font-size: 0.88rem;
+            line-height: 1.7;
+        }
+
+        .program-points li::marker {
+            color: var(--departments-accent);
+        }
+
+        .program-link {
+            display: inline-flex;
+            align-items: center;
+            width: fit-content;
+            padding: 0.55rem 0.9rem;
+            border-radius: 999px;
+            border: 1px solid var(--departments-border);
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: var(--departments-text);
+            transition: all 0.2s ease;
+        }
+
+        .program-link:hover {
+            background: var(--departments-accent-soft);
+            border-color: rgba(31, 111, 235, 0.22);
+            transform: translateY(-1px);
+        }
+
+        .departments-callout {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            padding: 1.4rem 1.5rem 1.8rem;
+            border-top: 1px solid var(--departments-border);
+        }
+
+        .callout-text {
+            font-size: 0.82rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--departments-muted);
+            font-weight: 700;
+        }
+
+        .callout-action {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.9rem 1.4rem;
+            border-radius: 999px;
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            color: #0f172a;
+            font-weight: 800;
+            box-shadow: 0 12px 26px rgba(251, 191, 36, 0.18), 0 0 0 1px rgba(255, 255, 255, 0.14), 0 0 14px rgba(251, 191, 36, 0.26);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .callout-action:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 30px rgba(251, 191, 36, 0.24), 0 0 0 1px rgba(255, 255, 255, 0.16), 0 0 18px rgba(251, 191, 36, 0.38);
+        }
+
+        body.theme-dark .callout-action {
+            background: linear-gradient(135deg, #7ab8ff 0%, #5da5ff 100%);
+            color: #09111d;
+            box-shadow: 0 10px 22px rgba(122, 184, 255, 0.12), 0 0 0 1px rgba(255, 255, 255, 0.08), 0 0 12px rgba(122, 184, 255, 0.2);
+        }
+
+        @media (max-width: 900px) {
+            .program-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 680px) {
+            .departments-shell {
+                width: min(94vw, 680px);
+                margin-top: 1rem;
+            }
+
+            .departments-hero,
+            .departments-header,
+            .departments-filters,
+            .program-grid,
+            .departments-callout {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+
+            .program-card {
+                grid-template-columns: 1fr;
+            }
+
+            .program-image {
+                min-height: 210px;
+            }
+
+            .departments-callout {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .callout-action {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body class="departments-page">
+    <div class="departments-shell">
+        <div class="departments-landing">
+            <header class="departments-header">
+                <nav class="navbar">
+                    <div class="logo">
+                        <img src="assets/img/logo.png" alt="School Logo">
+                        <span>School</span>
+                    </div>
+
+                    <button class="nav-toggle" aria-controls="primary-menu" aria-expanded="false" aria-label="Toggle navigation">☰</button>
+                    <ul class="nav-menu" id="primary-menu">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about us.html">About</a></li>
+                        <li><a href="departments.html" class="active">Departments</a></li>
+                        <li><a href="news.html">News</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+
+                    <div class="nav-actions">
+                        <button type="button" class="theme-toggle" aria-label="Toggle light and dark mode">
+                            <span class="theme-icon">🌙</span>
+                        </button>
+                        <a href="#" class="nav-cta open-modal">Apply Now</a>
+                    </div>
+                </nav>
+            </header>
+
+            <main>
+                <section class="departments-hero">
+                    <span class="section-kicker">Our Departments</span>
+                    <h1 class="departments-title">Explore Programs. Build Your Future.</h1>
+                    <p class="departments-subtitle">Discover practical programs designed to develop real-world skills and prepare students for the future through hands-on learning, industry exposure, and personal growth.</p>
+                </section>
+
+                <div class="departments-filters" aria-label="Department filters">
+                    <button type="button" class="filter-btn active" data-filter="all">All Programs</button>
+                    <button type="button" class="filter-btn" data-filter="technology">Technology</button>
+                    <button type="button" class="filter-btn" data-filter="engineering">Engineering</button>
+                    <button type="button" class="filter-btn" data-filter="automotive">Automotive</button>
+                </div>
+
+                <section class="program-grid" aria-label="Department programs">
+                    <article class="program-card" data-category="technology engineering">
+                        <div class="program-image">
+                            <img src="assets/img/network2.jpg" alt="Software Engineering">
+                        </div>
+                        <div class="program-content">
+                            <span class="program-tag">Digital Technology</span>
+                            <h2 class="program-name">Software Engineering</h2>
+                            <p class="program-summary">Learn programming, web development, and software design for modern digital solutions.</p>
+                            <ul class="program-points">
+                                <li>Web and mobile app development</li>
+                                <li>UI/UX and product thinking</li>
+                                <li>Project-based software creation</li>
+                            </ul>
+                            <a href="rpl.html" class="program-link">[ Explore + ]</a>
+                        </div>
+                    </article>
+
+                    <article class="program-card" data-category="technology engineering">
+                        <div class="program-image">
+                            <img src="assets/img/network.jpg" alt="Computer and Network Engineering">
+                        </div>
+                        <div class="program-content">
+                            <span class="program-tag">IT Infrastructure</span>
+                            <h2 class="program-name">Computer and Network Engineering</h2>
+                            <p class="program-summary">Networking, systems, and computer technology for reliable digital infrastructure and support.</p>
+                            <ul class="program-points">
+                                <li>LAN/WAN installation and setup</li>
+                                <li>Hardware troubleshooting</li>
+                                <li>Network security essentials</li>
+                            </ul>
+                            <a href="tkj.html" class="program-link">[ Explore + ]</a>
+                        </div>
+                    </article>
+
+                    <article class="program-card" data-category="engineering automotive">
+                        <div class="program-image">
+                            <img src="assets/img/otomotif.jpg" alt="Automotive Engineering">
+                        </div>
+                        <div class="program-content">
+                            <span class="program-tag">Vehicle Systems</span>
+                            <h2 class="program-name">Automotive Engineering</h2>
+                            <p class="program-summary">Gain practical skills in vehicle maintenance, diagnostics, and automotive technology systems.</p>
+                            <ul class="program-points">
+                                <li>Engine and diagnostics</li>
+                                <li>Electrical automotive systems</li>
+                                <li>Service and repair workflow</li>
+                            </ul>
+                            <a href="tkr.html" class="program-link">[ Explore + ]</a>
+                        </div>
+                    </article>
+
+                    <article class="program-card" data-category="engineering">
+                        <div class="program-image">
+                            <img src="assets/img/Electrical.jpg" alt="Electrical Engineering">
+                        </div>
+                        <div class="program-content">
+                            <span class="program-tag">Power Systems</span>
+                            <h2 class="program-name">Electrical Engineering</h2>
+                            <p class="program-summary">Build competence in wiring, control systems, power distribution, and industrial electrical work.</p>
+                            <ul class="program-points">
+                                <li>Power installation practice</li>
+                                <li>Control and wiring systems</li>
+                                <li>Maintenance and troubleshooting</li>
+                            </ul>
+                            <a href="electrical.html" class="program-link">[ Explore + ]</a>
+                        </div>
+                    </article>
+
+                    <article class="program-card" data-category="technology engineering">
+                        <div class="program-image">
+                            <img src="assets/img/mecha.jpg" alt="Mechatronics Engineering">
+                        </div>
+                        <div class="program-content">
+                            <span class="program-tag">Smart Systems</span>
+                            <h2 class="program-name">Mechatronics Engineering</h2>
+                            <p class="program-summary">Combine mechanical, electronic, and control skills for automation and smart machine systems.</p>
+                            <ul class="program-points">
+                                <li>Sensor and actuator integration</li>
+                                <li>Smart device prototyping</li>
+                                <li>Robotics fundamentals</li>
+                            </ul>
+                            <a href="mechatronics.html" class="program-link">[ Explore + ]</a>
+                        </div>
+                    </article>
+
+                    <article class="program-card" data-category="engineering technology automotive">
+                        <div class="program-image">
+                            <img src="assets/img/Automation.jpg" alt="Automation Engineering">
+                        </div>
+                        <div class="program-content">
+                            <span class="program-tag">Industrial Automation</span>
+                            <h2 class="program-name">Automation Engineering</h2>
+                            <p class="program-summary">Develop expertise in robotics, process control, and modern industrial automation systems.</p>
+                            <ul class="program-points">
+                                <li>PLC and control logic</li>
+                                <li>Industrial automation systems</li>
+                                <li>Smart manufacturing workflow</li>
+                            </ul>
+                            <a href="automation.html" class="program-link">[ Explore + ]</a>
+                        </div>
+                    </article>
+                </section>
+
+                <div class="departments-callout">
+                    <div class="callout-text">Find your path. Build your future.</div>
+                    <a href="contact.html" class="callout-action">[ Contact Us ]</a>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="admissionModal" aria-hidden="true">
+        <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+            <button type="button" class="modal-close" aria-label="Close registration form"><span aria-hidden="true">✕</span></button>
+            <h2 id="modalTitle">New Student Registration</h2>
+            <p>Fill out the form below to register for the school.</p>
+            <form id="admissionForm" class="modal-form">
+                <label for="studentName">Full Name</label>
+                <input type="text" id="studentName" name="studentName" required>
+
+                <label for="birthDate">Date of Birth</label>
+                <input type="date" id="birthDate" name="birthDate" required>
+
+                <label for="residence">Residence</label>
+                <textarea id="residence" name="residence" rows="3" required></textarea>
+
+                <div class="modal-actions">
+                    <button type="submit" class="btn-submit">Submit Registration</button>
+                </div>
+
+                <p class="modal-note">The data is stored locally only. Contact the school for confirmation.</p>
+            </form>
+        </div>
+    </div>
+
+    <script src="assets/js/menu-toggle.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const programCards = document.querySelectorAll('.program-card');
+
+            filterButtons.forEach((button) => {
+                button.addEventListener('click', () => {
+                    const filter = button.dataset.filter;
+
+                    filterButtons.forEach((btn) => btn.classList.toggle('active', btn === button));
+
+                    programCards.forEach((card) => {
+                        const categories = (card.dataset.category || '').toLowerCase();
+                        const shouldShow = filter === 'all' || categories.includes(filter);
+                        card.style.display = shouldShow ? 'grid' : 'none';
+                    });
+                });
+            });
+
+            const modal = document.getElementById('admissionModal');
+            const openModalButtons = document.querySelectorAll('.open-modal');
+            const closeModalButtons = modal ? modal.querySelectorAll('.modal-close') : [];
+            const admissionForm = document.getElementById('admissionForm');
+
+            function openModal() {
+                if (!modal) return;
+                modal.classList.add('active');
+                modal.setAttribute('aria-hidden', 'false');
+                document.body.classList.add('modal-open');
+                const firstField = modal.querySelector('input, textarea, button');
+                if (firstField) firstField.focus();
+            }
+
+            function closeModal() {
+                if (!modal) return;
+                modal.classList.remove('active');
+                modal.setAttribute('aria-hidden', 'true');
+                document.body.classList.remove('modal-open');
+            }
+
+            openModalButtons.forEach((button) => {
+                button.addEventListener('click', function (event) {
+                    event.preventDefault();
+                    openModal();
+                });
+            });
+
+            closeModalButtons.forEach((button) => {
+                button.addEventListener('click', closeModal);
+            });
+
+            if (modal) {
+                modal.addEventListener('click', (event) => {
+                    if (event.target === modal) {
+                        closeModal();
+                    }
+                });
+            }
+
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape' && modal && modal.classList.contains('active')) {
+                    closeModal();
+                }
+            });
+
+            if (admissionForm) {
+                admissionForm.addEventListener('submit', (event) => {
+                    event.preventDefault();
+                    const name = admissionForm.studentName.value.trim();
+                    const birth = admissionForm.birthDate.value;
+                    const residence = admissionForm.residence.value.trim();
+                    if (!name || !birth || !residence) return;
+                    alert(`Terima kasih, ${name}! Pendaftaran Anda telah dikirim.`);
+                    admissionForm.reset();
+                    closeModal();
+                });
+            }
+        });
+    </script>
+</body>
+</html>
