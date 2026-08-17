@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News & Stories | Nexora</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="news-page">
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <img src="assets/img/logo.png" alt="School Logo">
+                <span>School</span>
+            </div>
+
+            <button class="nav-toggle" aria-controls="primary-menu" aria-expanded="false" aria-label="Toggle navigation">☰</button>
+            <ul class="nav-menu" id="primary-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about us.html">About</a></li>
+                <li><a href="departments.html">Departments</a></li>
+                <li><a href="news.html" class="active">News</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+
+            <div class="nav-actions">
+                <button type="button" class="theme-toggle" aria-label="Toggle light and dark mode">
+                    <span class="theme-icon">🌙</span>
+                </button>
+                <a href="index.html#apply" class="nav-cta open-modal">Apply Now</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="news-shell reveal">
+            <div class="news-panel">
+                <div class="news-topbar">
+                    <span></span>
+                    <span></span>
+                </div>
+
+                <div class="news-hero">
+                    <div class="section-kicker">NEWS &amp; STORIES</div>
+                    <h1>Discover what's happening at NEXORA.</h1>
+                    <p>Follow school updates, student achievements, academic highlights, and upcoming events from across the campus community.</p>
+                </div>
+
+                <section class="featured-story reveal">
+                    <div class="section-label">Featured Story</div>
+
+                    <div class="news-featured">
+                        <div class="story-image">
+                            <img src="assets/img/siswa3.jpg" alt="Students at school event">
+                        </div>
+                        <div class="story-copy">
+                            <div class="story-kicker">School Event</div>
+                            <h2>Students Take Part in Annual Technology Fair</h2>
+                            <div class="story-date">15 August 2026</div>
+                            <a href="news-detail.html" class="story-link">Read Story →</a>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="news-list-wrap reveal">
+                    <div class="news-grid-title">Latest News</div>
+
+                    <div class="news-card-grid">
+                        <article class="news-card">
+                            <div class="news-thumb">
+                                <img src="assets/img/Study1.jpg" alt="School event image">
+                            </div>
+                            <div class="news-copy">
+                                <span class="card-tag">School Event</span>
+                                <h3>Title...</h3>
+                                <a href="news-detail.html">Read →</a>
+                            </div>
+                        </article>
+
+                        <article class="news-card">
+                            <div class="news-thumb">
+                                <img src="assets/img/network2.jpg" alt="Academic news image">
+                            </div>
+                            <div class="news-copy">
+                                <span class="card-tag">Academic News</span>
+                                <h3>Title...</h3>
+                                <a href="news-detail.html">Read →</a>
+                            </div>
+                        </article>
+
+                        <article class="news-card">
+                            <div class="news-thumb">
+                                <img src="assets/img/study2.jpg" alt="Student activity image">
+                            </div>
+                            <div class="news-copy">
+                                <span class="card-tag">Student Activity</span>
+                                <h3>Title...</h3>
+                                <a href="news-detail.html">Read →</a>
+                            </div>
+                        </article>
+                    </div>
+                </section>
+
+                <div class="news-categories reveal">
+                    <div class="section-label">Categories</div>
+                    <div class="cat-list">
+                        <span class="cat-item">School</span>
+                        <span class="cat-item">Academic</span>
+                        <span class="cat-item">Events</span>
+                        <span class="cat-item">Achievement</span>
+                    </div>
+                </div>
+
+                <div class="load-more reveal">
+                    <button type="button">[ Load More ]</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-top">
+            <div class="container footer-intro">
+                <div>
+                    <span>FIND US</span>
+                    <h2>Visit Our Campus</h2>
+                    <p>We'd love to welcome you to our campus. Come and discover where future professionals begin their journey.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="container footer-content">
+                <div class="footer-details">
+                    <h3>Nexora Vocational School</h3>
+                    <p class="footer-address">📍 123 Education Street<br>Unknown, Lapxs</p>
+                    <p>📞 +62 21 1234 5678</p>
+                    <p>✉️ hello@nexora.sch.id</p>
+                    <p class="footer-hours">Mon – Fri<br>07:00 – 16:00</p>
+                    <a href="#" class="footer-cta">Get Directions →</a>
+                </div>
+
+                <div class="footer-map">
+                    <div class="footer-map-card">
+                        <h3>School Location</h3>
+                        <p class="map-label">Random location near Unknown. Reload the page to see a different point.</p>
+                        <iframe id="randomMap" class="map-frame" loading="lazy" referrerpolicy="no-referrer-when-downgrade" aria-label="Random school location map"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="copyright">
+            &copy; 2026 Global Vocational Institute. All Rights Reserved.
+        </div>
+    </footer>
+
+    <script src="assets/js/menu-toggle.js"></script>
+    <script>
+        const mapIframe = document.getElementById('randomMap');
+        if (mapIframe) {
+            const baseLat = 6.2403;
+            const baseLon = 107.0088;
+            const randomOffset = () => (Math.random() - 0.5) * 0.08;
+            const lat = baseLat + randomOffset();
+            const lon = baseLon + randomOffset();
+            const bbox = 0.01;
+            const left = lon - bbox;
+            const right = lon + bbox;
+            const bottom = lat - bbox;
+            const top = lat + bbox;
+            mapIframe.src = `https://www.openstreetmap.org/export/embed.html?bbox=${left.toFixed(6)}%2C${bottom.toFixed(6)}%2C${right.toFixed(6)}%2C${top.toFixed(6)}&layer=mapnik&marker=${lat.toFixed(6)}%2C${lon.toFixed(6)}`;
+        }
+    </script>
+</body>
+</html>
